@@ -6,6 +6,7 @@
 # 00 00-23,3 * * * /sbin/zfs snapshot pool01@$(/bin/date "+\%Y_\%m_\%d-\%H_\%M_\%S.hourly")
 # 00 00 * * 6 /sbin/zfs snapshot pool01@$(/bin/date "+\%Y_\%m_\%d-\%H_\%M_\%S.weekly")
 #
+###
 
 import subprocess as sp
 import argparse
@@ -16,7 +17,7 @@ parser.add_argument('-q', '--quiet', help='destroy snapshots without confirmatio
 a = parser.parse_args()
 
 # number of most recent snapshots to keep
-_h = 24 * 7
+_h = 24 * 4
 _d = 30
 _w = 52
 
