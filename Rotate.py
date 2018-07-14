@@ -49,9 +49,9 @@ for snapshot in destroy_list:
     print(sp.getoutput(f'{cmd}'))
 
 print(f"""
-deleted : {len(w_del)} hourly snapshots'
-          {len(d_del)} daily snapshots'
-          {len(w_del)} weekly snapshots'
+deleted : {len(w_del)} hourly snapshots
+          {len(d_del)} daily snapshots
+          {len(w_del)} weekly snapshots
 """)
 
 
