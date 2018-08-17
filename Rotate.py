@@ -16,19 +16,27 @@ parser.add_argument('-q', '--quiet', help='destroy snapshots without confirmatio
 a = parser.parse_args()
 
 # number of most recent snapshots to keep
-_h = 24 * 7
+_h = 36
 _d = 30
 _w = 52
 
-zfs_list = f'zfs list -H -t snapshot'
+zfs_list = f'/sbin/zfs list -H -t snapshot'
 
+# save zfs list command output into a variable
 snapshots = sp.getoutput(zfs_list).splitlines()
+
+# save each type of snapshot to a seperate list
 snaps = {'daily':[], 'hourly':[], 'weekly':[]}
 for line in snapshots:
     snapshot = line.split()[0]
     schedule = snapshot.split('.')[-1]
-    snaps[schedule].append(snapshot)
+    try:
+        snaps[schedule].append(snapshot)
+    except KeyError:
+        print(f"unknown key {snapshot}")
+        continue
 
+# create delete list according to keep snapshots rules
 h_del = snaps['hourly'][:len(snaps['hourly']) - _h]
 d_del = snaps['daily'][:len(snaps['daily']) - _d]
 w_del = snaps['weekly'][:len(snaps['weekly']) - _w]
@@ -38,7 +46,7 @@ destroy_list += d_del
 destroy_list += w_del
 
 for snapshot in destroy_list:
-    cmd = f'zfs destroy {snapshot}'
+    cmd = f'/sbin/zfs destroy {snapshot}'
     print(f'Running : {cmd}')
     if not a.quiet:
         answer = input(' - Continue ? (y) : ')
@@ -49,7 +57,7 @@ for snapshot in destroy_list:
     print(sp.getoutput(f'{cmd}'))
 
 print(f"""
-deleted : {len(w_del)} hourly snapshots
+deleted : {len(h_del)} hourly snapshots
           {len(d_del)} daily snapshots
           {len(w_del)} weekly snapshots
 """)
