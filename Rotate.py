@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 #
-#
-# snapshot was created by the following crontab line :
-# 00 00 * * * /sbin/zfs snapshot pool01@$(/bin/date "+\%Y_\%m_\%d-\%H_\%M_\%S.daily")
-# 00 00-23,3 * * * /sbin/zfs snapshot pool01@$(/bin/date "+\%Y_\%m_\%d-\%H_\%M_\%S.hourly")
-# 00 00 * * 6 /sbin/zfs snapshot pool01@$(/bin/date "+\%Y_\%m_\%d-\%H_\%M_\%S.weekly")
-#
+'''
+snapshot was created by the following crontab line :
+00 00 * * * /sbin/zfs snapshot pool01@$(/bin/date "+\%Y_\%m_\%d-\%H_\%M_\%S.daily")
+00 00-23,3 * * * /sbin/zfs snapshot pool01@$(/bin/date "+\%Y_\%m_\%d-\%H_\%M_\%S.hourly")
+00 00 * * 6 /sbin/zfs snapshot pool01@$(/bin/date "+\%Y_\%m_\%d-\%H_\%M_\%S.weekly")
+
+@author: Mustaki Oren <orengithub@mustaki.com>
+'''
 
 import subprocess as sp
 import argparse

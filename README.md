@@ -1,5 +1,6 @@
 # RotateZFSSnapshots
 
+A tool to rotate and delete zfs snapshots.
 this script will delete all snapshot excluding the last N snapshots
 of each one of the following types : hourly, daily, weekly.
 
